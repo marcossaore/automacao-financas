@@ -1,0 +1,5 @@
+# Configuração com token — nunca versionar
+.env
+
+# Logs com dados financeiros pessoais
+*.log
