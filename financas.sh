@@ -163,7 +163,8 @@ parse_inter() {
     PERMITE_PARCELAS=nao; ORIGEM=$CONTA_INTER
 
     # "Olá <nome>, você acaba de comprar no débito no(a) <local> o valor de <valor>"
-    LOCAL=$(printf '%s' "$CORPO" | sed -n 's/.*comprar no d[^ ]*bito no(a) \(.*\) o valor de .*/\1/p')
+    # (o Inter também escreve "no", "na" ou "em" no lugar de "no(a)")
+    LOCAL=$(printf '%s' "$CORPO" | sed -En 's/.*comprar no d[^ ]*bito (no\(a\)|no|na|em) (.*) o valor de .*/\2/p')
     if [ -n "$LOCAL" ]; then
         MSG=compra
         VALOR=$(printf '%s' "$CORPO" | sed -n 's/.* o valor de \(.*\)/\1/p')
